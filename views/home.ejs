@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <h1>Quote Finder</h1>
+            <p class="subtitle">Discover wisdom from great minds</p>
+
+            <!-- Search by Keyword Form -->
+            <div class="form-row">
+                <label for="keyword">Search by Keyword</label>
+                <form action="/searchByKeyword" method="GET">
+                    <input 
+                        type="text" 
+                        id="keyword" 
+                        name="keyword" 
+                        placeholder="e.g., love, wisdom, success..." 
+                        required>
+                    <button type="submit">Search Quotes</button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+            <!-- Search by Author Form -->
+            <div class="form-row">
+                <label for="authorID">Search by Author</label>
+                <form action="/searchByAuthor" method="GET">
+                    <select name="authorID" id="authorID" required>
+                        <option value="">-- Select an author --</option>
+                        <% for (let author of authors) { %>
+                            <option value="<%= author.authorID %>">
+                                <%= author.firstName %> <%= author.lastName %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

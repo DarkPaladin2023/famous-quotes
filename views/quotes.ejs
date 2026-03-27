@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <!-- Results Header -->
+            <div class="results-header">
+                <h1>Quote Results</h1>
+                <p class="results-subtitle">
+                    <% if (rows.length === 0) { %>
+                        No quotes found
+                    <% } else if (rows.length === 1) { %>
+                        1 quote found
+                    <% } else { %>
+                        <%= rows.length %> quotes found
+                    <% } %>
+                </p>
+            </div>
+
+            <!-- Quote Cards or Empty State -->
+            <% if (rows.length === 0) { %>
+                <div class="empty-state">
+                    <p>No quotes match your search. Try a different keyword or author.</p>
+                </div>
+            <% } else { %>
+                <% for (let quote of rows) { %>
+                    <div class="quote-card">
+                        <p class="quote-text"><%= quote.quote %></p>
+                        <p class="quote-author"><%= quote.firstName %> <%= quote.lastName %></p>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- Author Dropdown Form (Always Available) -->
+            <div class="form-divider">
+                <div class="form-divider-label">Search Again</div>
+            </div>
+
+            <div class="form-row">
+                <label for="authorID">Search by Author</label>
+                <form action="/searchByAuthor" method="GET">
+                    <select name="authorID" id="authorID" required>
+                        <option value="">-- Select an author --</option>
+                        <% for (let author of authors) { %>
+                            <option value="<%= author.authorID %>">
+                                <%= author.firstName %> <%= author.lastName %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+
+            <!-- Link Back Home -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="/" style="color: rgba(100, 200, 255, 0.8); text-decoration: none; font-size: 0.95rem;">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
