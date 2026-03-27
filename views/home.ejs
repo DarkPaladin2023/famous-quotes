@@ -43,6 +43,52 @@
                     <button type="submit">Show Quotes</button>
                 </form>
             </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+            <!-- Search by Category Form -->
+            <div class="form-row">
+                <label for="category">Search by Category</label>
+                <form action="/searchByCategory" method="GET">
+                    <select name="category" id="category" required>
+                        <option value="">-- Select a category --</option>
+                        <% for (let cat of categories) { %>
+                            <option value="<%= cat.category %>"><%= cat.category %></option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+            <!-- Search by Likes Form -->
+            <div class="form-row">
+                <label for="likes">Search by Likes Range</label>
+                <form action="/searchByLikes" method="GET">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <input 
+                            type="number" 
+                            name="minLikes" 
+                            placeholder="Min likes" 
+                            min="0" 
+                            style="flex: 1;">
+                        <input 
+                            type="number" 
+                            name="maxLikes" 
+                            placeholder="Max likes" 
+                            min="0" 
+                            style="flex: 1;">
+                    </div>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
         </div>
     </div>
 

@@ -218,6 +218,46 @@ button:active {
 }
 
 /* ============================================
+   Likes Display in Quote Cards
+   ============================================ */
+
+.quote-likes {
+    font-size: 0.85rem;
+    color: rgba(100, 200, 255, 0.6);
+    font-weight: 500;
+    text-align: right;
+    margin-top: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   Likes Range Inputs
+   ============================================ */
+
+.form-row input[type="number"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.form-row input[type="number"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-row input[type="number"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+}
+
+/* ============================================
    Empty State
    ============================================ */
 

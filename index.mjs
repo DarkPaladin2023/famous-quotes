@@ -20,7 +20,11 @@ app.get('/', async (req, res) => {
                FROM authors
                ORDER by lastName`;
     const [authors] = await pool.query(sql);
-   res.render('home', { authors });
+    
+    // Fetch categories for the category dropdown
+    const [categories] = await pool.query(`SELECT DISTINCT category FROM quotes ORDER BY category`);
+    
+   res.render('home', { authors, categories });
 });
 //Searching quotes by author
 app.get("/searchByAuthor", async(req, res) => {
@@ -80,6 +84,59 @@ app.get("/dbTest", async(req, res) => {
 
 
 });//dbTest
+
+// Search by Category
+app.get("/searchByCategory", async(req, res) => {
+   try {
+        let category = req.query.category;
+        let sql = `SELECT quote, firstName, lastName
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE category = ?
+                   ORDER BY quote`;
+        let sqlParams = [category];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});
+
+// Search by Likes
+app.get("/searchByLikes", async(req, res) => {
+   try {
+        let minLikes = parseInt(req.query.minLikes) || 0;
+        let maxLikes = parseInt(req.query.maxLikes) || 999999;
+        
+        // Swap if min > max
+        if (minLikes > maxLikes) {
+            [minLikes, maxLikes] = [maxLikes, minLikes];
+        }
+        
+        let sql = `SELECT quote, firstName, lastName, likes
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE likes BETWEEN ? AND ?
+                   ORDER BY likes DESC, quote`;
+        let sqlParams = [minLikes, maxLikes];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});
 
 app.listen(3001, ()=>{
     console.log("Express server running")
