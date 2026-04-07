@@ -8,9 +8,9 @@ app.use(express.urlencoded({extended:true}));
 //setting up database connection pool, replace values in red
 const pool = mysql.createPool({
     host: "sh4ob67ph9l80v61.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    user: "w9c7lwn8um1o99yj",
-    password: "u3rw8lbcasz2h307",
-    database: "pyn5h5u7iu857dd2",
+    user: process.env.DB_USERNAME, // user name will be contained in the .env file, but you can also just put it here
+    password: process.env.DB_PWD, // process.env.XYZ specifically means to get the value of XYZ from the .env file, but you can also just put it here
+    database: process.env.DB_NAME, // while the database name is not sensitive information, we can also put it in the .env file for consistency
     connectionLimit: 10,
     waitForConnections: true
 });
