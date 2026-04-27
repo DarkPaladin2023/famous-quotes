@@ -14,7 +14,7 @@
             <!-- Search by Keyword Form -->
             <div class="form-row">
                 <label for="keyword">Search by Keyword</label>
-                <form action="/searchByKeyword" method="GET">
+                <form id="searchByKeywordForm" action="/searchByKeyword" method="GET"> <!-- Added an ID for easier targeting of the form, do this for all forms -->
                     <input 
                         type="text" 
                         id="keyword" 
@@ -23,12 +23,33 @@
                         required>
                     <button type="submit">Search Quotes</button>
                 </form>
+                <!-- adding a script so the keyword has at least 3 characters -->
+                 <script>
+                    document.querySelector("#searchByKeywordForm").addEventListener("submit", function(event){
+                        if(!validateKeywordForm()){
+                            event.preventDefault(); // prevent form submission if validation fails
+                        }
+                    });
+
+                    function validateKeywordForm(){
+
+                        let keyword = document.querySelector("input[name='keyword']").value;
+                        if(keyword.length < 3){
+                            alert("Keyword must be at least 3 characters long");// simple client-side validation but in the final version display below the button a red error message instead of an alert
+                            return false; // prevent form submission
+                    }
+
+
+                        return true; // allow form submission
+                    }
+                 </script>
             </div>
 
             <!-- Divider -->
             <div class="form-divider">
                 <div class="form-divider-label">Or</div>
             </div>
+
 
             <!-- Search by Author Form -->
             <div class="form-row">

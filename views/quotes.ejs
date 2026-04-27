@@ -21,6 +21,41 @@
                     <% } %>
                 </p>
             </div>
+<div id = "authorInfo">
+
+<h1 id="authorNames"></h1>
+<img id = "authorImg">  
+
+</div>
+
+<script>
+    // adding an event listener to display author info when an author name is clicked 
+    document.addEventListener("DOMContentLoaded", function(){
+        let authorLinks = document.querySelectorAll(".authorNames");
+        for (let i of authorLinks) {
+            i.addEventListener("click", function(event){
+                event.preventDefault();
+                displayAuthorInfo.call(this);
+            });
+        }
+    });
+    
+    async function displayAuthorInfo(){
+        let authorID = this.getAttribute("authorID");
+        let url = "/api/author/" + authorID;
+        try {
+            let response = await fetch(url);
+            let data = await response.json();
+            document.getElementById("authorNames").textContent = data.firstName + " " + data.lastName;
+            if (data.biography) {
+                document.getElementById("authorImg").alt = data.firstName + " " + data.lastName;
+            }
+        } catch (err) {
+            console.error("Error fetching author info:", err);
+        }
+    }
+
+</script>
 
             <!-- Quote Cards or Empty State -->
             <% if (rows.length === 0) { %>
@@ -31,7 +66,11 @@
                 <% for (let quote of rows) { %>
                     <div class="quote-card">
                         <p class="quote-text"><%= quote.quote %></p>
-                        <p class="quote-author"><%= quote.firstName %> <%= quote.lastName %></p>
+                        <p class="quote-author">
+                            <a href="/searchByAuthor?authorID=<%= quote.authorID %>" class="authorNames" authorID="<%= quote.authorID %>">
+                                <%= quote.firstName %> <%= quote.lastName %>
+                            </a>
+                        </p>
                         <% if (quote.likes !== undefined) { %>
                             <p class="quote-likes">Likes: <%= quote.likes %></p>
                         <% } %>

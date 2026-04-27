@@ -1,5 +1,8 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -7,7 +10,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 //setting up database connection pool, replace values in red
 const pool = mysql.createPool({
-    host: "sh4ob67ph9l80v61.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    host: process.env.DB_HOST, // host name will be contained in the .env file, but you can also just put it here
     user: process.env.DB_USERNAME, // user name will be contained in the .env file, but you can also just put it here
     password: process.env.DB_PWD, // process.env.XYZ specifically means to get the value of XYZ from the .env file, but you can also just put it here
     database: process.env.DB_NAME, // while the database name is not sensitive information, we can also put it in the .env file for consistency
@@ -26,11 +29,31 @@ app.get('/', async (req, res) => {
     
    res.render('home', { authors, categories });
 });
+// IMPORTANT: Always use parameterized queries when using user input in SQL statements to prevent SQL injection attacks. NEVER directly concatenate user input into SQL strings.
+//API to get the author information based on an author ID, this will be used by the AJAX call in the home.ejs file
+app.get('/api/author/:authorID', async(req, res) => { //
+   try {
+        let authorID = req.params.authorID; //note that param has to match the :authorID in the route
+        let sql = `SELECT *
+                  FROM authors
+                  WHERE authorID = ?`;
+        
+        const [authorInfo] = await pool.query(sql, [authorID]);
+        if (authorInfo.length === 0) {
+            res.status(404).send({ error: "Author not found" });
+        } else {
+            res.json(authorInfo[0]); //send the author information back to the AJAX call as a response
+        }
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send({ error: "Database error!" });
+    }
+});
 //Searching quotes by author
 app.get("/searchByAuthor", async(req, res) => {
    try {
         let authorID = req.query.authorID;
-        let sql = `SELECT quote, firstName, lastName
+        let sql = `SELECT quote, firstName, lastName, authorID
                    FROM quotes
                    NATURAL JOIN authors
                    WHERE authorID = ? `;
@@ -53,7 +76,7 @@ app.get("/searchByKeyword", async(req, res) => {
    try {
         //console.log(req);
         let keyword = req.query.keyword;
-        let sql = `SELECT quote, firstName, lastName
+        let sql = `SELECT quote, firstName, lastName, authorID
                    FROM quotes
                    NATURAL JOIN authors
                    WHERE quote LIKE ? `;
@@ -89,7 +112,7 @@ app.get("/dbTest", async(req, res) => {
 app.get("/searchByCategory", async(req, res) => {
    try {
         let category = req.query.category;
-        let sql = `SELECT quote, firstName, lastName
+        let sql = `SELECT quote, firstName, lastName, authorID
                    FROM quotes
                    NATURAL JOIN authors
                    WHERE category = ?
@@ -119,7 +142,7 @@ app.get("/searchByLikes", async(req, res) => {
             [minLikes, maxLikes] = [maxLikes, minLikes];
         }
         
-        let sql = `SELECT quote, firstName, lastName, likes
+        let sql = `SELECT quote, firstName, lastName, authorID, likes
                    FROM quotes
                    NATURAL JOIN authors
                    WHERE likes BETWEEN ? AND ?
@@ -137,7 +160,9 @@ app.get("/searchByLikes", async(req, res) => {
         res.status(500).send("Database error!");
     }
 });
+// we will fix this route to process.envPort now
 
-app.listen(3001, ()=>{
+app.listen(process.env.PORT || 3001, ()=>{
     console.log("Express server running")
 })
+
