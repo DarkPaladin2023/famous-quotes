@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <div class="results-header">
+                <div class="signature-horsey" aria-hidden="true">♞</div>
+                <h1><%= author ? 'Edit Author' : 'Add New Author' %></h1>
+                <p class="results-subtitle"><%= author ? 'Update author details.' : 'Create a new author.' %></p>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin'">Admin</button>
+                <button onclick="location.href='/admin/authors'">Authors</button>
+                <button onclick="location.href='/admin/quotes'">Quotes</button>
+                <button onclick="location.href='/profile'">Profile</button>
+                <button onclick="location.href='/settings'">Settings</button>
+                <button onclick="location.href='/logout'">Log Out</button>
+            </div>
+
+            <form action="<%= author ? '/admin/authors/edit' : '/admin/authors/new' %>" method="POST">
+                <% if (author) { %>
+                    <input type="hidden" name="id" value="<%= author.authorID %>">
+                <% } %>
+                <div class="form-row">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" value="<%= author ? author.firstName : '' %>" required>
+                </div>
+                <div class="form-row">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" value="<%= author ? author.lastName : '' %>" required>
+                </div>
+                <div class="form-row">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" value="<%= author ? author.dob : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="dod">Date of Death</label>
+                    <input type="date" id="dod" name="dod" value="<%= author ? author.dod : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="sex">Sex</label>
+                    <input type="text" id="sex" name="sex" value="<%= author ? author.sex : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="profession">Profession</label>
+                    <input type="text" id="profession" name="profession" value="<%= author ? author.profession : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" value="<%= author ? author.country : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="portrait">Portrait URL</label>
+                    <input type="url" id="portrait" name="portrait" value="<%= author ? author.portrait : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="biography">Biography</label>
+                    <textarea id="biography" name="biography"><%= author ? author.biography : '' %></textarea>
+                </div>
+                <button type="submit"><%= author ? 'Update Author' : 'Add Author' %></button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

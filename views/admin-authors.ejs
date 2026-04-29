@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <div class="results-header">
+                <div class="signature-horsey" aria-hidden="true">♞</div>
+                <h1>Manage Authors</h1>
+                <p class="results-subtitle">Add, edit, or delete authors.</p>
+            </div>
+
+            <% if (error) { %>
+                <div class="form-error"><%= error %></div>
+            <% } %>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin'">Admin</button>
+                <button onclick="location.href='/admin/authors'">Authors</button>
+                <button onclick="location.href='/admin/quotes'">Quotes</button>
+                <button onclick="location.href='/profile'">Profile</button>
+                <button onclick="location.href='/settings'">Settings</button>
+                <button onclick="location.href='/logout'">Log Out</button>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin/authors/new'">Add New Author</button>
+            </div>
+
+            <% authors.forEach(author => { %>
+                <div class="quote-card">
+                    <p><strong><%= author.firstName %> <%= author.lastName %></strong></p>
+                    <p>DOB: <%= author.dob || 'N/A' %>, DOD: <%= author.dod || 'N/A' %></p>
+                    <p>Sex: <%= author.sex || 'N/A' %>, Profession: <%= author.profession || 'N/A' %>, Country: <%= author.country || 'N/A' %></p>
+                    <p>Biography: <%= author.biography || 'N/A' %></p>
+                    <form action="/admin/authors/edit" method="GET" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= author.authorID %>">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="/admin/authors/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?')">
+                        <input type="hidden" name="id" value="<%= author.authorID %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

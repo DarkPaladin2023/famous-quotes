@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <div class="results-header">
+                <div class="signature-horsey" aria-hidden="true">♞</div>
+                <h1><%= quote ? 'Edit Quote' : 'Add New Quote' %></h1>
+                <p class="results-subtitle"><%= quote ? 'Update quote details.' : 'Create a new quote.' %></p>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin'">Admin</button>
+                <button onclick="location.href='/admin/authors'">Authors</button>
+                <button onclick="location.href='/admin/quotes'">Quotes</button>
+                <button onclick="location.href='/profile'">Profile</button>
+                <button onclick="location.href='/settings'">Settings</button>
+                <button onclick="location.href='/logout'">Log Out</button>
+            </div>
+
+            <form action="<%= quote ? '/admin/quotes/edit' : '/admin/quotes/new' %>" method="POST">
+                <% if (quote) { %>
+                    <input type="hidden" name="id" value="<%= quote.quoteID %>">
+                <% } %>
+                <div class="form-row">
+                    <label for="quote">Quote</label>
+                    <textarea id="quote" name="quote" required><%= quote ? quote.quote : '' %></textarea>
+                </div>
+                <div class="form-row">
+                    <label for="authorID">Author</label>
+                    <select id="authorID" name="authorID" required>
+                        <option value="">-- Select an author --</option>
+                        <% authors.forEach(author => { %>
+                            <option value="<%= author.authorID %>" <%= quote && quote.authorID == author.authorID ? 'selected' : '' %>><%= author.firstName %> <%= author.lastName %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="category">Category</label>
+                    <input type="text" id="category" name="category" value="<%= quote ? quote.category : '' %>">
+                </div>
+                <div class="form-row">
+                    <label for="likes">Likes</label>
+                    <input type="number" id="likes" name="likes" value="<%= quote ? quote.likes : 0 %>" min="0">
+                </div>
+                <button type="submit"><%= quote ? 'Update Quote' : 'Add Quote' %></button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

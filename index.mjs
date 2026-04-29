@@ -97,6 +97,82 @@ app.get('/settings', isAuthenticated, async (req, res) => {
     res.render('settings', { username: req.session.username });
 });
 
+// Author CRUD
+app.get('/admin/authors', isAuthenticated, async (req, res) => {
+    const [authors] = await pool.query('SELECT * FROM authors ORDER BY lastName');
+    res.render('admin-authors', { authors, username: req.session.username, error: null });
+});
+
+app.get('/admin/authors/new', isAuthenticated, (req, res) => {
+    res.render('admin-author-form', { author: null, username: req.session.username });
+});
+
+app.post('/admin/authors/new', isAuthenticated, async (req, res) => {
+    const { firstName, lastName, dob, dod, sex, profession, country, portrait, biography } = req.body;
+    await pool.query('INSERT INTO authors (firstName, lastName, dob, dod, sex, profession, country, portrait, biography) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [firstName, lastName, dob, dod, sex, profession, country, portrait, biography]);
+    res.redirect('/admin/authors');
+});
+
+app.get('/admin/authors/edit', isAuthenticated, async (req, res) => {
+    const { id } = req.query;
+    const [authors] = await pool.query('SELECT * FROM authors WHERE authorID = ?', [id]);
+    res.render('admin-author-form', { author: authors[0], username: req.session.username });
+});
+
+app.post('/admin/authors/edit', isAuthenticated, async (req, res) => {
+    const { id, firstName, lastName, dob, dod, sex, profession, country, portrait, biography } = req.body;
+    await pool.query('UPDATE authors SET firstName = ?, lastName = ?, dob = ?, dod = ?, sex = ?, profession = ?, country = ?, portrait = ?, biography = ? WHERE authorID = ?', [firstName, lastName, dob, dod, sex, profession, country, portrait, biography, id]);
+    res.redirect('/admin/authors');
+});
+
+app.post('/admin/authors/delete', isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+    const [quotes] = await pool.query('SELECT COUNT(*) as count FROM quotes WHERE authorID = ?', [id]);
+    if (quotes[0].count > 0) {
+        const [authors] = await pool.query('SELECT * FROM authors ORDER BY lastName');
+        res.render('admin-authors', { authors, username: req.session.username, error: 'Cannot delete author with existing quotes.' });
+    } else {
+        await pool.query('DELETE FROM authors WHERE authorID = ?', [id]);
+        res.redirect('/admin/authors');
+    }
+});
+
+// Quote CRUD
+app.get('/admin/quotes', isAuthenticated, async (req, res) => {
+    const [quotes] = await pool.query('SELECT q.*, a.firstName, a.lastName FROM quotes q JOIN authors a ON q.authorID = a.authorID ORDER BY q.quote');
+    res.render('admin-quotes', { quotes, username: req.session.username });
+});
+
+app.get('/admin/quotes/new', isAuthenticated, async (req, res) => {
+    const [authors] = await pool.query('SELECT authorID, firstName, lastName FROM authors ORDER BY lastName');
+    res.render('admin-quote-form', { quote: null, authors, username: req.session.username });
+});
+
+app.post('/admin/quotes/new', isAuthenticated, async (req, res) => {
+    const { quote, authorID, category, likes } = req.body;
+    await pool.query('INSERT INTO quotes (quote, authorID, category, likes) VALUES (?, ?, ?, ?)', [quote, authorID, category, likes]);
+    res.redirect('/admin/quotes');
+});
+
+app.get('/admin/quotes/edit', isAuthenticated, async (req, res) => {
+    const { id } = req.query;
+    const [quotes] = await pool.query('SELECT * FROM quotes WHERE quoteID = ?', [id]);
+    const [authors] = await pool.query('SELECT authorID, firstName, lastName FROM authors ORDER BY lastName');
+    res.render('admin-quote-form', { quote: quotes[0], authors, username: req.session.username });
+});
+
+app.post('/admin/quotes/edit', isAuthenticated, async (req, res) => {
+    const { id, quote, authorID, category, likes } = req.body;
+    await pool.query('UPDATE quotes SET quote = ?, authorID = ?, category = ?, likes = ? WHERE quoteID = ?', [quote, authorID, category, likes, id]);
+    res.redirect('/admin/quotes');
+});
+
+app.post('/admin/quotes/delete', isAuthenticated, async (req, res) => {
+    const { id } = req.body;
+    await pool.query('DELETE FROM quotes WHERE quoteID = ?', [id]);
+    res.redirect('/admin/quotes');
+});
+
 app.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/login');

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <div class="results-header">
+                <div class="signature-horsey" aria-hidden="true">♞</div>
+                <h1>Manage Quotes</h1>
+                <p class="results-subtitle">Add, edit, or delete quotes.</p>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin'">Admin</button>
+                <button onclick="location.href='/admin/authors'">Authors</button>
+                <button onclick="location.href='/admin/quotes'">Quotes</button>
+                <button onclick="location.href='/profile'">Profile</button>
+                <button onclick="location.href='/settings'">Settings</button>
+                <button onclick="location.href='/logout'">Log Out</button>
+            </div>
+
+            <div class="form-row">
+                <button onclick="location.href='/admin/quotes/new'">Add New Quote</button>
+            </div>
+
+            <% quotes.forEach(quote => { %>
+                <div class="quote-card">
+                    <p class="quote-text"><%= quote.quote %></p>
+                    <p class="quote-author">Author: <%= quote.firstName %> <%= quote.lastName %></p>
+                    <p>Category: <%= quote.category || 'N/A' %>, Likes: <%= quote.likes || 0 %></p>
+                    <form action="/admin/quotes/edit" method="GET" style="display: inline;">
+                        <input type="hidden" name="id" value="<%= quote.quoteID %>">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="/admin/quotes/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?')">
+                        <input type="hidden" name="id" value="<%= quote.quoteID %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
