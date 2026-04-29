@@ -28,23 +28,6 @@
 
             <!-- Quote Cards or Empty State -->
 
-            <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="authorModalTitle">Author Information</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="author-modal-content">
-                                <img id="authorModalImage" src="/images/tron.png" alt="Author portrait" class="author-modal-img">
-                                <p id="authorModalDates" class="author-modal-dates"></p>
-                                <p id="authorModalBio" class="author-modal-bio"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <% if (rows.length === 0) { %>
                 <div class="empty-state">
                     <p>No quotes match your search. Try a different keyword or author.</p>
@@ -90,6 +73,24 @@
                 <a href="/" style="color: rgba(100, 200, 255, 0.8); text-decoration: none; font-size: 0.95rem;">
                     ← Back to Home
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authorModalTitle">Author Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="author-modal-content">
+                        <img id="authorModalImage" src="/images/tron.png" alt="Author portrait" class="author-modal-img">
+                        <p id="authorModalDates" class="author-modal-dates"></p>
+                        <p id="authorModalBio" class="author-modal-bio"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
