@@ -23,7 +23,7 @@
 
             <form action="<%= author ? '/admin/authors/edit' : '/admin/authors/new' %>" method="POST">
                 <% if (author) { %>
-                    <input type="hidden" name="id" value="<%= author.authorID %>">
+                    <input type="hidden" name="id" value="<%= author.authorId %>">
                 <% } %>
                 <div class="form-row">
                     <label for="firstName">First Name</label>

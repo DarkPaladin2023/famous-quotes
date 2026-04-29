@@ -35,12 +35,9 @@
                     <p>DOB: <%= author.dob || 'N/A' %>, DOD: <%= author.dod || 'N/A' %></p>
                     <p>Sex: <%= author.sex || 'N/A' %>, Profession: <%= author.profession || 'N/A' %>, Country: <%= author.country || 'N/A' %></p>
                     <p>Biography: <%= author.biography || 'N/A' %></p>
-                    <form action="/admin/authors/edit" method="GET" style="display: inline;">
-                        <input type="hidden" name="id" value="<%= author.authorID %>">
-                        <button type="submit">Edit</button>
-                    </form>
+                    <button onclick="location.href='/admin/authors/edit?id=<%= author.authorId %>'">Edit</button>
                     <form action="/admin/authors/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?')">
-                        <input type="hidden" name="id" value="<%= author.authorID %>">
+                        <input type="hidden" name="id" value="<%= author.authorId %>">
                         <button type="submit">Delete</button>
                     </form>
                 </div>

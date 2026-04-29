@@ -23,18 +23,18 @@
 
             <form action="<%= quote ? '/admin/quotes/edit' : '/admin/quotes/new' %>" method="POST">
                 <% if (quote) { %>
-                    <input type="hidden" name="id" value="<%= quote.quoteID %>">
+                    <input type="hidden" name="id" value="<%= quote.quoteId %>">
                 <% } %>
                 <div class="form-row">
                     <label for="quote">Quote</label>
                     <textarea id="quote" name="quote" required><%= quote ? quote.quote : '' %></textarea>
                 </div>
                 <div class="form-row">
-                    <label for="authorID">Author</label>
-                    <select id="authorID" name="authorID" required>
+                    <label for="authorId">Author</label>
+                    <select id="authorId" name="authorId" required>
                         <option value="">-- Select an author --</option>
                         <% authors.forEach(author => { %>
-                            <option value="<%= author.authorID %>" <%= quote && quote.authorID == author.authorID ? 'selected' : '' %>><%= author.firstName %> <%= author.lastName %></option>
+                            <option value="<%= author.authorId %>" <%= quote && quote.authorId == author.authorId ? 'selected' : '' %>><%= author.firstName %> <%= author.lastName %></option>
                         <% }); %>
                     </select>
                 </div>

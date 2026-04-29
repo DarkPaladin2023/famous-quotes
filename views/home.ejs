@@ -34,12 +34,12 @@
 
             <!-- Search by Author Form -->
             <div class="form-row">
-                <label for="authorID">Search by Author</label>
+                <label for="authorId">Search by Author</label>
                 <form action="/searchByAuthor" method="GET">
-                    <select name="authorID" id="authorID" required>
+                    <select name="authorID" id="authorId" required>
                         <option value="">-- Select an author --</option>
                         <% for (let author of authors) { %>
-                            <option value="<%= author.authorID %>">
+                            <option value="<%= author.authorId %>">
                                 <%= author.firstName %> <%= author.lastName %>
                             </option>
                         <% } %>

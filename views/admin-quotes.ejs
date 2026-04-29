@@ -30,12 +30,9 @@
                     <p class="quote-text"><%= quote.quote %></p>
                     <p class="quote-author">Author: <%= quote.firstName %> <%= quote.lastName %></p>
                     <p>Category: <%= quote.category || 'N/A' %>, Likes: <%= quote.likes || 0 %></p>
-                    <form action="/admin/quotes/edit" method="GET" style="display: inline;">
-                        <input type="hidden" name="id" value="<%= quote.quoteID %>">
-                        <button type="submit">Edit</button>
-                    </form>
+                    <button onclick="location.href='/admin/quotes/edit?id=<%= quote.quoteId %>'">Edit</button>
                     <form action="/admin/quotes/delete" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?')">
-                        <input type="hidden" name="id" value="<%= quote.quoteID %>">
+                        <input type="hidden" name="id" value="<%= quote.quoteId %>">
                         <button type="submit">Delete</button>
                     </form>
                 </div>
