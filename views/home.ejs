@@ -22,27 +22,8 @@
                         placeholder="e.g., love, wisdom, success..." 
                         required>
                     <button type="submit">Search Quotes</button>
+                    <p id="keywordError" class="form-error"></p>
                 </form>
-                <!-- adding a script so the keyword has at least 3 characters -->
-                 <script>
-                    document.querySelector("#searchByKeywordForm").addEventListener("submit", function(event){
-                        if(!validateKeywordForm()){
-                            event.preventDefault(); // prevent form submission if validation fails
-                        }
-                    });
-
-                    function validateKeywordForm(){
-
-                        let keyword = document.querySelector("input[name='keyword']").value;
-                        if(keyword.length < 3){
-                            alert("Keyword must be at least 3 characters long");// simple client-side validation but in the final version display below the button a red error message instead of an alert
-                            return false; // prevent form submission
-                    }
-
-
-                        return true; // allow form submission
-                    }
-                 </script>
             </div>
 
             <!-- Divider -->

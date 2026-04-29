@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <h1>Admin Login</h1>
+            <div class="signature-horsey" aria-hidden="true">♞</div>
+            <p class="subtitle">Access the admin panel securely.</p>
+
+            <form id="loginForm" action="/login" method="POST">
+                <div class="form-row">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </div>
+                <div class="form-row" style="position: relative;">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <button type="button" id="togglePassword" class="password-toggle">Show</button>
+                </div>
+
+                <p id="loginError" class="form-error"><%= error || '' %></p>
+
+                <button type="submit">Log In</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="/" style="color: rgba(100, 200, 255, 0.8); text-decoration: none;">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>

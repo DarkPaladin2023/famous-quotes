@@ -1,6 +1,8 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
+import session from 'express-session';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 const app = express();
@@ -8,6 +10,23 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 //for Express to get values using the POST method
 app.use(express.urlencoded({extended:true}));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'please-change-this-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 // 1 hour
+    }
+}));
+
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.userId) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
 //setting up database connection pool, replace values in red
 const pool = mysql.createPool({
     host: process.env.DB_HOST, // host name will be contained in the .env file, but you can also just put it here
@@ -29,6 +48,53 @@ app.get('/', async (req, res) => {
     
    res.render('home', { authors, categories });
 });
+
+app.get('/login', async (req, res) => {
+    if (req.session && req.session.userId) {
+        return res.redirect('/admin');
+    }
+    res.render('login', { error: null });
+});
+
+app.post('/login', async (req, res) => {
+    try {
+        const username = req.body.username?.trim();
+        const password = req.body.password;
+
+        if (!username || !password) {
+            return res.render('login', { error: 'Username and password are required.' });
+        }
+
+        const [rows] = await pool.query('SELECT userId, username, password FROM admin WHERE username = ?', [username]);
+        if (rows.length === 0) {
+            return res.render('login', { error: 'Invalid username or password.' });
+        }
+
+        const admin = rows[0];
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+        if (!passwordMatch) {
+            return res.render('login', { error: 'Invalid username or password.' });
+        }
+
+        req.session.userId = admin.userId;
+        req.session.username = admin.username;
+        res.redirect('/admin');
+    } catch (err) {
+        console.error('Login error:', err);
+        res.render('login', { error: 'Login failed. Please try again.' });
+    }
+});
+
+app.get('/admin', isAuthenticated, async (req, res) => {
+    res.render('admin', { username: req.session.username });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
+
 // IMPORTANT: Always use parameterized queries when using user input in SQL statements to prevent SQL injection attacks. NEVER directly concatenate user input into SQL strings.
 //API to get the author information based on an author ID, this will be used by the AJAX call in the home.ejs file
 app.get('/api/author/:authorID', async(req, res) => { //

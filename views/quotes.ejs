@@ -21,43 +21,30 @@
                     <% } %>
                 </p>
             </div>
-<div id = "authorInfo">
-
-<h1 id="authorNames"></h1>
-<img id = "authorImg">  
-
-</div>
-
-<script>
-    // adding an event listener to display author info when an author name is clicked 
-    document.addEventListener("DOMContentLoaded", function(){
-        let authorLinks = document.querySelectorAll(".authorNames");
-        for (let i of authorLinks) {
-            i.addEventListener("click", function(event){
-                event.preventDefault();
-                displayAuthorInfo.call(this);
-            });
-        }
-    });
-    
-    async function displayAuthorInfo(){
-        let authorID = this.getAttribute("authorID");
-        let url = "/api/author/" + authorID;
-        try {
-            let response = await fetch(url);
-            let data = await response.json();
-            document.getElementById("authorNames").textContent = data.firstName + " " + data.lastName;
-            if (data.biography) {
-                document.getElementById("authorImg").alt = data.firstName + " " + data.lastName;
-            }
-        } catch (err) {
-            console.error("Error fetching author info:", err);
-        }
-    }
-
-</script>
+            <div id="authorInfo" style="display:none;">
+                <h1 id="authorNames"></h1>
+                <img id="authorImg" alt="Author portrait" style="display:none;">
+            </div>
 
             <!-- Quote Cards or Empty State -->
+
+            <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="authorModalTitle">Author Information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="author-modal-content">
+                                <img id="authorModalImage" src="/images/tron.png" alt="Author portrait" class="author-modal-img">
+                                <p id="authorModalDates" class="author-modal-dates"></p>
+                                <p id="authorModalBio" class="author-modal-bio"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <% if (rows.length === 0) { %>
                 <div class="empty-state">
                     <p>No quotes match your search. Try a different keyword or author.</p>
@@ -67,7 +54,7 @@
                     <div class="quote-card">
                         <p class="quote-text"><%= quote.quote %></p>
                         <p class="quote-author">
-                            <a href="/searchByAuthor?authorID=<%= quote.authorID %>" class="authorNames" authorID="<%= quote.authorID %>">
+                            <a href="#" class="authorNames" authorID="<%= quote.authorID %>">
                                 <%= quote.firstName %> <%= quote.lastName %>
                             </a>
                         </p>

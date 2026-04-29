@@ -1,0 +1,467 @@
+/* ============================================
+   Global Styles & Page Shell
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: fixed center/cover no-repeat url('/images/tron.png');
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    overflow-x: hidden;
+}
+
+/* Dark overlay for background dimming */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 10, 30, 0.65);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.page-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ============================================
+   Glass Panel (Frosted Glass Effect)
+   ============================================ */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(100, 200, 255, 0.1);
+    width: 100%;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.98);
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+/* ============================================
+   Form Styles
+   ============================================ */
+
+.form-row {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-row:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.form-row label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.form-row input[type="text"],
+.form-row select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.form-row input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-row input[type="text"]:focus,
+.form-row select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+}
+
+.form-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    min-height: 1.2rem;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.2rem 0.4rem;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.98);
+}
+
+.form-row select option {
+    background: #1a1a2e;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.4), rgba(100, 150, 255, 0.3));
+    color: rgba(255, 255, 255, 0.98);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(100, 200, 255, 0.15);
+}
+
+button:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.5), rgba(100, 150, 255, 0.4));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(100, 200, 255, 0.25);
+    border-color: rgba(100, 200, 255, 0.5);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   Quote Cards (Results Page)
+   ============================================ */
+
+.quote-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quote-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(100, 200, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(100, 200, 255, 0.15);
+}
+
+.quote-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.quote-text::before {
+    content: '"';
+    font-size: 3rem;
+    color: rgba(100, 200, 255, 0.3);
+    line-height: 0;
+    margin-right: 0.5rem;
+}
+
+.quote-author {
+    font-size: 0.95rem;
+    color: rgba(100, 200, 255, 0.8);
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.3px;
+}
+
+.quote-author::before {
+    content: '— ';
+}
+
+/* ============================================
+   Likes Display in Quote Cards
+   ============================================ */
+
+.quote-likes {
+    font-size: 0.85rem;
+    color: rgba(100, 200, 255, 0.6);
+    font-weight: 500;
+    text-align: right;
+    margin-top: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   Likes Range Inputs
+   ============================================ */
+
+.form-row input[type="number"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.form-row input[type="number"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-row input[type="number"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.page-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-footer p {
+    margin: 0;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 600px) {
+    .glass-panel {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+    }
+
+    body {
+        padding: 1rem;
+    }
+
+    .page-shell {
+        max-width: 100%;
+    }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.results-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-title {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0.5rem;
+}
+
+.results-subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-divider {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-divider-label {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.author-modal-img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+}
+
+.author-modal-dates {
+    color: rgba(100, 200, 255, 0.75);
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.author-modal-bio {
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.8;
+}
+
+.modal-content {
+    background: rgba(12, 24, 44, 0.96);
+    color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(100, 200, 255, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(14px);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-title {
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.btn-close {
+    filter: invert(1);
+}
+/* ============================================
+   Brand Classes
+   ============================================ */
+
+.signature-horsey {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    line-height: 1;
+    color: #f7fbff;
+    border-radius: 50%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.05)
+    );
+    border: 1px solid rgba(140, 220, 255, 0.35);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 0 12px rgba(90, 200, 255, 0.35),
+        0 0 28px rgba(50, 170, 255, 0.18),
+        inset 0 0 18px rgba(255, 255, 255, 0.08);
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 18px rgba(120, 220, 255, 0.85),
+        0 0 32px rgba(0, 180, 255, 0.55);
+}
+
+.signature-horsey::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(120, 220, 255, 0.22) 0%,
+        rgba(120, 220, 255, 0.08) 45%,
+        rgba(120, 220, 255, 0) 75%
+    );
+    z-index: -1;
+    filter: blur(10px);
+}
