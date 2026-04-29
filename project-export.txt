@@ -1,0 +1,1131 @@
+===== FILE: ./public/css/styles.css =====
+/* ============================================
+   Global Styles & Page Shell
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: fixed center/cover no-repeat url('/images/tron.png');
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+    overflow-x: hidden;
+}
+
+/* Dark overlay for background dimming */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 10, 30, 0.65);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.page-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ============================================
+   Glass Panel (Frosted Glass Effect)
+   ============================================ */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2),
+        0 0 60px rgba(100, 200, 255, 0.1);
+    width: 100%;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.98);
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+/* ============================================
+   Form Styles
+   ============================================ */
+
+.form-row {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-row:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.form-row label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.form-row input[type="text"],
+.form-row select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.form-row input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-row input[type="text"]:focus,
+.form-row select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+}
+
+.form-error {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+    min-height: 1.2rem;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.2rem 0.4rem;
+}
+
+.password-toggle:hover {
+    color: rgba(255, 255, 255, 0.98);
+}
+
+.form-row select option {
+    background: #1a1a2e;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.4), rgba(100, 150, 255, 0.3));
+    color: rgba(255, 255, 255, 0.98);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(100, 200, 255, 0.15);
+}
+
+button:hover {
+    background: linear-gradient(135deg, rgba(100, 200, 255, 0.5), rgba(100, 150, 255, 0.4));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(100, 200, 255, 0.25);
+    border-color: rgba(100, 200, 255, 0.5);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   Quote Cards (Results Page)
+   ============================================ */
+
+.quote-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quote-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(100, 200, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(100, 200, 255, 0.15);
+}
+
+.quote-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.quote-text::before {
+    content: '"';
+    font-size: 3rem;
+    color: rgba(100, 200, 255, 0.3);
+    line-height: 0;
+    margin-right: 0.5rem;
+}
+
+.quote-author {
+    font-size: 0.95rem;
+    color: rgba(100, 200, 255, 0.8);
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.3px;
+}
+
+.quote-author::before {
+    content: '— ';
+}
+
+/* ============================================
+   Likes Display in Quote Cards
+   ============================================ */
+
+.quote-likes {
+    font-size: 0.85rem;
+    color: rgba(100, 200, 255, 0.6);
+    font-weight: 500;
+    text-align: right;
+    margin-top: 0.5rem;
+    letter-spacing: 0.3px;
+}
+
+/* ============================================
+   Likes Range Inputs
+   ============================================ */
+
+.form-row input[type="number"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.form-row input[type="number"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-row input[type="number"]:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(100, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(100, 200, 255, 0.2);
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.empty-state p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.page-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 3rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.page-footer p {
+    margin: 0;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 600px) {
+    .glass-panel {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .quote-text {
+        font-size: 1.1rem;
+    }
+
+    body {
+        padding: 1rem;
+    }
+
+    .page-shell {
+        max-width: 100%;
+    }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.results-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-title {
+    font-size: 1.8rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0.5rem;
+}
+
+.results-subtitle {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.form-divider {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-divider-label {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.author-modal-img {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+}
+
+.author-modal-dates {
+    color: rgba(100, 200, 255, 0.75);
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.author-modal-bio {
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.8;
+}
+
+.modal-content {
+    background: rgba(12, 24, 44, 0.96);
+    color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(100, 200, 255, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(14px);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-title {
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.btn-close {
+    filter: invert(1);
+}
+/* ============================================
+   Brand Classes
+   ============================================ */
+
+.signature-horsey {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    line-height: 1;
+    color: #f7fbff;
+    border-radius: 50%;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.05)
+    );
+    border: 1px solid rgba(140, 220, 255, 0.35);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 0 12px rgba(90, 200, 255, 0.35),
+        0 0 28px rgba(50, 170, 255, 0.18),
+        inset 0 0 18px rgba(255, 255, 255, 0.08);
+    text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 18px rgba(120, 220, 255, 0.85),
+        0 0 32px rgba(0, 180, 255, 0.55);
+}
+
+.signature-horsey::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(120, 220, 255, 0.22) 0%,
+        rgba(120, 220, 255, 0.08) 45%,
+        rgba(120, 220, 255, 0) 75%
+    );
+    z-index: -1;
+    filter: blur(10px);
+}
+
+===== FILE: ./public/js/authorModal.js =====
+document.addEventListener("DOMContentLoaded", function () {
+    const modalEl = document.getElementById("authorModal");
+    if (!modalEl || typeof bootstrap === "undefined") {
+        return;
+    }
+
+    const authorModal = new bootstrap.Modal(modalEl);
+    const modalTitle = modalEl.querySelector("#authorModalTitle");
+    const modalImage = modalEl.querySelector("#authorModalImage");
+    const modalDates = modalEl.querySelector("#authorModalDates");
+    const modalBio = modalEl.querySelector("#authorModalBio");
+
+    const fallbackImage = "/images/tron.png";
+
+    document.querySelectorAll(".authorNames").forEach((link) => {
+        link.addEventListener("click", async function (event) {
+            event.preventDefault();
+            const authorID = this.getAttribute("authorID");
+            if (!authorID) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/author/${authorID}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch author data");
+                }
+                const data = await response.json();
+                const authorName = `${data.firstName || ""} ${data.lastName || ""}`.trim() || "Author";
+                const imageSrc = data.portrait || data.image || data.imageURL || data.imageUrl || fallbackImage;
+                const birthDate = data.dob || data.birthDate || data.birthdate || data.birth || "";
+                const deathDate = data.dod || data.deathDate || data.deathdate || data.death || "";
+
+                if (modalTitle) {
+                    modalTitle.textContent = authorName;
+                }
+
+                if (modalImage) {
+                    modalImage.src = imageSrc;
+                    modalImage.alt = authorName;
+                }
+
+                if (modalDates) {
+                    const dateText = [birthDate, deathDate].filter(Boolean).join(" — ");
+                    modalDates.textContent = dateText;
+                    modalDates.style.display = dateText ? "block" : "none";
+                }
+
+                if (modalBio) {
+                    modalBio.textContent = data.biography || data.bio || "Biography not available.";
+                }
+
+                authorModal.show();
+            } catch (error) {
+                console.error("Author modal error:", error);
+            }
+        });
+    });
+});
+
+
+===== FILE: ./public/js/login.js =====
+document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+    const loginError = document.getElementById("loginError");
+    const loginForm = document.getElementById("loginForm");
+
+    if (toggle && passwordInput) {
+        toggle.addEventListener("click", function () {
+            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+            this.textContent = passwordInput.type === "password" ? "Show" : "Hide";
+        });
+    }
+
+    if (loginForm && loginError) {
+        loginForm.addEventListener("submit", function () {
+            loginError.textContent = "";
+        });
+    }
+});
+
+
+===== FILE: ./public/js/validation.js =====
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("searchByKeywordForm");
+    const errorEl = document.getElementById("keywordError");
+
+    if (!form || !errorEl) {
+        return;
+    }
+
+    const keywordInput = form.querySelector("input[name='keyword']");
+    if (!keywordInput) {
+        return;
+    }
+
+    form.addEventListener("submit", function (event) {
+        const value = keywordInput.value.trim();
+        if (value.length < 3) {
+            event.preventDefault();
+            errorEl.textContent = "Keyword must be at least 3 characters long.";
+            return;
+        }
+
+        errorEl.textContent = "";
+    });
+
+    keywordInput.addEventListener("input", function () {
+        if (this.value.trim().length >= 3) {
+            errorEl.textContent = "";
+        }
+    });
+});
+
+
+===== FILE: ./package.json =====
+{
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "dotenv": "^17.4.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.20.0"
+  }
+}
+
+
+===== FILE: ./index.mjs =====
+import express from 'express';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+import session from 'express-session';
+import bcrypt from 'bcrypt';
+
+dotenv.config();
+const app = express();
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+//for Express to get values using the POST method
+app.use(express.urlencoded({extended:true}));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'please-change-this-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 // 1 hour
+    }
+}));
+
+function isAuthenticated(req, res, next) {
+    if (req.session && req.session.userId) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+//setting up database connection pool, replace values in red
+const pool = mysql.createPool({
+    host: process.env.DB_HOST, // host name will be contained in the .env file, but you can also just put it here
+    user: process.env.DB_USERNAME, // user name will be contained in the .env file, but you can also just put it here
+    password: process.env.DB_PWD, // process.env.XYZ specifically means to get the value of XYZ from the .env file, but you can also just put it here
+    database: process.env.DB_NAME, // while the database name is not sensitive information, we can also put it in the .env file for consistency
+    connectionLimit: 10,
+    waitForConnections: true
+});
+//routes
+app.get('/', async (req, res) => {
+    let sql = `SELECT authorID, firstName, lastName
+               FROM authors
+               ORDER by lastName`;
+    const [authors] = await pool.query(sql);
+    
+    // Fetch categories for the category dropdown
+    const [categories] = await pool.query(`SELECT DISTINCT category FROM quotes ORDER BY category`);
+    
+   res.render('home', { authors, categories });
+});
+
+app.get('/login', async (req, res) => {
+    if (req.session && req.session.userId) {
+        return res.redirect('/admin');
+    }
+    res.render('login', { error: null });
+});
+
+app.post('/login', async (req, res) => {
+    try {
+        const username = req.body.username?.trim();
+        const password = req.body.password;
+
+        if (!username || !password) {
+            return res.render('login', { error: 'Username and password are required.' });
+        }
+
+        const [rows] = await pool.query('SELECT userId, username, password FROM admin WHERE username = ?', [username]);
+        if (rows.length === 0) {
+            return res.render('login', { error: 'Invalid username or password.' });
+        }
+
+        const admin = rows[0];
+        const passwordMatch = await bcrypt.compare(password, admin.password);
+        if (!passwordMatch) {
+            return res.render('login', { error: 'Invalid username or password.' });
+        }
+
+        req.session.userId = admin.userId;
+        req.session.username = admin.username;
+        res.redirect('/admin');
+    } catch (err) {
+        console.error('Login error:', err);
+        res.render('login', { error: 'Login failed. Please try again.' });
+    }
+});
+
+app.get('/admin', isAuthenticated, async (req, res) => {
+    res.render('admin', { username: req.session.username });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
+
+// IMPORTANT: Always use parameterized queries when using user input in SQL statements to prevent SQL injection attacks. NEVER directly concatenate user input into SQL strings.
+//API to get the author information based on an author ID, this will be used by the AJAX call in the home.ejs file
+app.get('/api/author/:authorID', async(req, res) => { //
+   try {
+        let authorID = req.params.authorID; //note that param has to match the :authorID in the route
+        let sql = `SELECT *
+                  FROM authors
+                  WHERE authorID = ?`;
+        
+        const [authorInfo] = await pool.query(sql, [authorID]);
+        if (authorInfo.length === 0) {
+            res.status(404).send({ error: "Author not found" });
+        } else {
+            res.json(authorInfo[0]); //send the author information back to the AJAX call as a response
+        }
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send({ error: "Database error!" });
+    }
+});
+//Searching quotes by author
+app.get("/searchByAuthor", async(req, res) => {
+   try {
+        let authorID = req.query.authorID;
+        let sql = `SELECT quote, firstName, lastName, authorID
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE authorID = ? `;
+        let sqlParams = [authorID];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});
+//Searching quotes by keyword
+//NEVER have user input within the SQL statement!!
+app.get("/searchByKeyword", async(req, res) => {
+   try {
+        //console.log(req);
+        let keyword = req.query.keyword;
+        let sql = `SELECT quote, firstName, lastName, authorID
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE quote LIKE ? `;
+        let sqlParams = [`%${keyword}%`];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        //since we have quotes.ejs, we can render that and pass the rows to it
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});//dbTest
+
+
+app.get("/dbTest", async(req, res) => {
+   try {
+        const [rows] = await pool.query("SELECT CURDATE()");
+        res.send(rows);
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+
+
+});//dbTest
+
+// Search by Category
+app.get("/searchByCategory", async(req, res) => {
+   try {
+        let category = req.query.category;
+        let sql = `SELECT quote, firstName, lastName, authorID
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE category = ?
+                   ORDER BY quote`;
+        let sqlParams = [category];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});
+
+// Search by Likes
+app.get("/searchByLikes", async(req, res) => {
+   try {
+        let minLikes = parseInt(req.query.minLikes) || 0;
+        let maxLikes = parseInt(req.query.maxLikes) || 999999;
+        
+        // Swap if min > max
+        if (minLikes > maxLikes) {
+            [minLikes, maxLikes] = [maxLikes, minLikes];
+        }
+        
+        let sql = `SELECT quote, firstName, lastName, authorID, likes
+                   FROM quotes
+                   NATURAL JOIN authors
+                   WHERE likes BETWEEN ? AND ?
+                   ORDER BY likes DESC, quote`;
+        let sqlParams = [minLikes, maxLikes];
+        const [rows] = await pool.query(sql, sqlParams);
+        
+        // Also fetch authors for the dropdown
+        const [authors] = await pool.query(`SELECT authorID, firstName, lastName FROM authors ORDER BY lastName`);
+        
+        res.render('quotes', { rows, authors });
+
+    } catch (err) {
+        console.error("Database error:", err);
+        res.status(500).send("Database error!");
+    }
+});
+// we will fix this route to process.envPort now
+
+app.listen(process.env.PORT || 3001, ()=>{
+    console.log("Express server running")
+})
+
+
+
+===== FILE: ./views/login.ejs =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <h1>Admin Login</h1>
+            <div class="signature-horsey" aria-hidden="true">♞</div>
+            <p class="subtitle">Access the admin panel securely.</p>
+
+            <form id="loginForm" action="/login" method="POST">
+                <div class="form-row">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </div>
+                <div class="form-row" style="position: relative;">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                    <button type="button" id="togglePassword" class="password-toggle">Show</button>
+                </div>
+
+                <p id="loginError" class="form-error"><%= error || '' %></p>
+
+                <button type="submit">Log In</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <a href="/" style="color: rgba(100, 200, 255, 0.8); text-decoration: none;">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
+
+
+===== FILE: ./views/home.ejs =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            
+            <h1>Quote Finder</h1>
+            <div class="signature-horsey" aria-hidden="true">♞</div> <!-- Brand Signature -->
+            <p class="subtitle">Discover wisdom from great minds</p>
+
+            <!-- Search by Keyword Form -->
+            <div class="form-row">
+                <label for="keyword">Search by Keyword</label>
+                <form id="searchByKeywordForm" action="/searchByKeyword" method="GET"> <!-- Added an ID for easier targeting of the form, do this for all forms -->
+                    <input 
+                        type="text" 
+                        id="keyword" 
+                        name="keyword" 
+                        placeholder="e.g., love, wisdom, success..." 
+                        required>
+                    <button type="submit">Search Quotes</button>
+                    <p id="keywordError" class="form-error"></p>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+
+            <!-- Search by Author Form -->
+            <div class="form-row">
+                <label for="authorID">Search by Author</label>
+                <form action="/searchByAuthor" method="GET">
+                    <select name="authorID" id="authorID" required>
+                        <option value="">-- Select an author --</option>
+                        <% for (let author of authors) { %>
+                            <option value="<%= author.authorID %>">
+                                <%= author.firstName %> <%= author.lastName %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+            <!-- Search by Category Form -->
+            <div class="form-row">
+                <label for="category">Search by Category</label>
+                <form action="/searchByCategory" method="GET">
+                    <select name="category" id="category" required>
+                        <option value="">-- Select a category --</option>
+                        <% for (let cat of categories) { %>
+                            <option value="<%= cat.category %>"><%= cat.category %></option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="form-divider">
+                <div class="form-divider-label">Or</div>
+            </div>
+
+            <!-- Search by Likes Form -->
+            <div class="form-row">
+                <label for="likes">Search by Likes Range</label>
+                <form action="/searchByLikes" method="GET">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <input 
+                            type="number" 
+                            name="minLikes" 
+                            placeholder="Min likes" 
+                            min="0" 
+                            style="flex: 1;">
+                        <input 
+                            type="number" 
+                            name="maxLikes" 
+                            placeholder="Max likes" 
+                            min="0" 
+                            style="flex: 1;">
+                    </div>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
+
+===== FILE: ./views/quotes.ejs =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <!-- Results Header -->
+            <div class="results-header">
+
+                <div class="signature-horsey" aria-hidden="true">♞</div> <!-- Brand Signature -->
+                <h1>Quote Results</h1>
+                <p class="results-subtitle">
+                    <% if (rows.length === 0) { %>
+                        No quotes found
+                    <% } else if (rows.length === 1) { %>
+                        1 quote found
+                    <% } else { %>
+                        <%= rows.length %> quotes found
+                    <% } %>
+                </p>
+            </div>
+            <div id="authorInfo" style="display:none;">
+                <h1 id="authorNames"></h1>
+                <img id="authorImg" alt="Author portrait" style="display:none;">
+            </div>
+
+            <!-- Quote Cards or Empty State -->
+
+            <% if (rows.length === 0) { %>
+                <div class="empty-state">
+                    <p>No quotes match your search. Try a different keyword or author.</p>
+                </div>
+            <% } else { %>
+                <% for (let quote of rows) { %>
+                    <div class="quote-card">
+                        <p class="quote-text"><%= quote.quote %></p>
+                        <p class="quote-author">
+                            <a href="#" class="authorNames" authorID="<%= quote.authorID %>">
+                                <%= quote.firstName %> <%= quote.lastName %>
+                            </a>
+                        </p>
+                        <% if (quote.likes !== undefined) { %>
+                            <p class="quote-likes">Likes: <%= quote.likes %></p>
+                        <% } %>
+                    </div>
+                <% } %>
+            <% } %>
+
+            <!-- Author Dropdown Form (Always Available) -->
+            <div class="form-divider">
+                <div class="form-divider-label">Search Again</div>
+            </div>
+
+            <div class="form-row">
+                <label for="authorID">Search by Author</label>
+                <form action="/searchByAuthor" method="GET">
+                    <select name="authorID" id="authorID" required>
+                        <option value="">-- Select an author --</option>
+                        <% for (let author of authors) { %>
+                            <option value="<%= author.authorID %>">
+                                <%= author.firstName %> <%= author.lastName %>
+                            </option>
+                        <% } %>
+                    </select>
+                    <button type="submit">Show Quotes</button>
+                </form>
+            </div>
+
+            <!-- Link Back Home -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="/" style="color: rgba(100, 200, 255, 0.8); text-decoration: none; font-size: 0.95rem;">
+                    ← Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authorModalTitle">Author Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="author-modal-content">
+                        <img id="authorModalImage" src="/images/tron.png" alt="Author portrait" class="author-modal-img">
+                        <p id="authorModalDates" class="author-modal-dates"></p>
+                        <p id="authorModalBio" class="author-modal-bio"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
+
+===== FILE: ./views/admin.ejs =====
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head') %>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="glass-panel">
+            <div class="results-header">
+                <div class="signature-horsey" aria-hidden="true">♞</div>
+                <h1>Admin Panel</h1>
+                <p class="results-subtitle">Welcome, <%= username %>. You are logged in.</p>
+            </div>
+
+            <div class="form-row">
+                <p>Use the home page search tools to explore quotes. This page is protected by session authentication.</p>
+            </div>
+
+            <div class="form-row">
+                <a href="/" class="btn">Back to Home</a>
+                <a href="/logout" class="btn" style="margin-top: 1rem;">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+</body>
+</html>
+
+
+===== FILE: ./views/partials/head.ejs =====
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Famous Quotes</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/styles.css">
+
+
+===== FILE: ./views/partials/footer.ejs =====
+<footer class="page-footer">
+    <p>&copy; 2026 Famous Quotes | Daniel</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/validation.js"></script>
+<script src="/js/authorModal.js"></script>
+<script src="/js/login.js"></script>
+
+

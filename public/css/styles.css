@@ -157,6 +157,18 @@ h1 {
     color: rgba(255, 255, 255, 0.98);
 }
 
+.form-row.password-field {
+    position: relative;
+}
+
+.form-row.password-field input[type="password"] {
+    padding-right: 3.8rem;
+}
+
+.password-toggle {
+    z-index: 2;
+}
+
 .form-row select option {
     background: #1a1a2e;
     color: rgba(255, 255, 255, 0.95);

@@ -21,7 +21,7 @@ app.use(session({
 }));
 
 function isAuthenticated(req, res, next) {
-    if (req.session && req.session.userId) {
+    if (req.session && req.session.userId != null) {
         return next();
     }
     res.redirect('/login');
@@ -50,7 +50,7 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/login', async (req, res) => {
-    if (req.session && req.session.userId) {
+    if (req.session && req.session.userId != null) {
         return res.redirect('/admin');
     }
     res.render('login', { error: null });
@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
             return res.render('login', { error: 'Username and password are required.' });
         }
 
-        const [rows] = await pool.query('SELECT userId, username, password FROM admin WHERE username = ?', [username]);
+        const [rows] = await pool.query('SELECT adminId, username, password FROM admin WHERE username = ?', [username]);
         if (rows.length === 0) {
             return res.render('login', { error: 'Invalid username or password.' });
         }
@@ -76,7 +76,7 @@ app.post('/login', async (req, res) => {
             return res.render('login', { error: 'Invalid username or password.' });
         }
 
-        req.session.userId = admin.userId;
+        req.session.userId = admin.adminId;
         req.session.username = admin.username;
         res.redirect('/admin');
     } catch (err) {
@@ -87,6 +87,14 @@ app.post('/login', async (req, res) => {
 
 app.get('/admin', isAuthenticated, async (req, res) => {
     res.render('admin', { username: req.session.username });
+});
+
+app.get('/profile', isAuthenticated, async (req, res) => {
+    res.render('profile', { username: req.session.username });
+});
+
+app.get('/settings', isAuthenticated, async (req, res) => {
+    res.render('settings', { username: req.session.username });
 });
 
 app.get('/logout', (req, res) => {
